@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">CameraSample2</string>
+
+    <string name="welcome_text">Welcome to Camera Sample App. Click on button below to take photos.</string>
+
+    <string name="want_take_photo">I want to take photo!</string>
+
+    <string name="capture">Capture</string>
+
+    <string name="failed_open_camera">Failed to open camera</string>
+
+    <string name="failed_create_directory">Failed to create directory</string>
+</resources>
