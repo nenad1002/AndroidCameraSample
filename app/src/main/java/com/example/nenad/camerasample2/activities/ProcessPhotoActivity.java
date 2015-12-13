@@ -33,6 +33,8 @@ public class ProcessPhotoActivity extends AppCompatActivity {
 
     private static final int RESIZE_RATIO = 5;
 
+    private static final int PICTURE_SIDE_LENGTH = 500;
+
 
     @Bind(R.id.preview_view)
     ImageView previewView;
@@ -58,21 +60,40 @@ public class ProcessPhotoActivity extends AppCompatActivity {
             options.inJustDecodeBounds = false;
             options.inSampleSize = RESIZE_RATIO;
 
-            final Bitmap bitmap = BitmapFactory.decodeFile(picturePath, options);
-
-            final Bitmap bitmap2 = Bitmap.createScaledBitmap(bitmap, 350, 350, false);
+            final Bitmap tmpBitmap = Bitmap.createScaledBitmap(BitmapFactory.decodeFile(picturePath, options)
+                    , PICTURE_SIDE_LENGTH, PICTURE_SIDE_LENGTH, false);
 
             Thread thread = new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    iterateBitmap(bitmap2);
+                    final Bitmap rotatedBitmap = rotateBitmap(tmpBitmap);
+                    iterateBitmap(rotatedBitmap);
+
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            previewView.setImageBitmap(rotatedBitmap);
+                        }
+                    });
                 }
             });
 
             thread.start();
 
+    }
 
-            previewView.setImageBitmap(bitmap2);
+    private Bitmap rotateBitmap(Bitmap bitmap) {
+        Bitmap resBitmap = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(),
+                Bitmap.Config.ARGB_8888);
+
+        for (int i = 0; i < bitmap.getHeight(); i++) {
+            for (int j = 0; j < bitmap.getWidth(); j++) {
+                resBitmap.setPixel(j, i, bitmap.getPixel(i, j));
+            }
+        }
+
+
+        return resBitmap;
     }
 
     private void iterateBitmap(Bitmap bitmap) {
