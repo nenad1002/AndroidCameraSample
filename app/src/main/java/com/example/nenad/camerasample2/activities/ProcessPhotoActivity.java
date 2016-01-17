@@ -66,7 +66,7 @@ public class ProcessPhotoActivity extends AppCompatActivity {
             Thread thread = new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    final Bitmap rotatedBitmap = rotateBitmap(tmpBitmap);
+                    final Bitmap rotatedBitmap = mirrorBitmap(rotateBitmap(tmpBitmap));
                     iterateBitmap(rotatedBitmap);
 
                     runOnUiThread(new Runnable() {
@@ -89,6 +89,23 @@ public class ProcessPhotoActivity extends AppCompatActivity {
         for (int i = 0; i < bitmap.getHeight(); i++) {
             for (int j = 0; j < bitmap.getWidth(); j++) {
                 resBitmap.setPixel(j, i, bitmap.getPixel(i, j));
+            }
+        }
+
+
+        return resBitmap;
+    }
+
+    private Bitmap mirrorBitmap(Bitmap bitmap) {
+        Bitmap resBitmap = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(),
+                Bitmap.Config.ARGB_8888);
+
+        int n = bitmap.getHeight(), m = bitmap.getWidth();
+
+        for (int i = 0; i < n / 2; i++) {
+            for (int j = 0; j < m; j++) {
+                resBitmap.setPixel(i, j, bitmap.getPixel(n - i - 1, j));
+                resBitmap.setPixel(n - i - 1, j, bitmap.getPixel(i, j));
             }
         }
 

@@ -22,6 +22,23 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    productFlavors {
+
+        def STRING = "String"
+        def API_URL = "API_URL"
+
+
+        staging {
+            buildConfigField STRING, API_URL, '"https://www.example.com/api/v1"'
+        }
+        production {
+            buildConfigField STRING, API_URL, '"https://www.example.com/api/v1"'
+        }
+        mock {
+            buildConfigField STRING, API_URL, '"https://www.example.com/api/v1"'
+        }
+    }
 }
 
 
@@ -41,6 +58,11 @@ dependencies {
     // Other
     compile 'com.jakewharton.timber:timber:3.1.0'
     compile 'com.ivankocijan:MagicViews:3.0.0@aar'
+
+    // Retrofit
+    compile 'com.google.code.gson:gson:2.4'
+    compile 'com.squareup.okhttp:okhttp:2.4.0'
+    compile 'com.squareup.retrofit:retrofit:1.9.0'
 
 
 
