@@ -117,8 +117,7 @@ public class ProcessPhotoActivity extends AppCompatActivity {
         for (int i = 0; i < bitmap.getWidth(); i++) {
             for (int j = 0; j < bitmap.getHeight(); j++) {
                 int color = bitmap.getPixel(i, j);
-                // do something with color -> i am going to use this in neural network to see
-                // each perticular color
+                // do something with color -> i am going to use this feature in neural networks
             }
         }
     }
