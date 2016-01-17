@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">CameraSample2</string>
+    <string name="app_name">Camera Sample App</string>
 
     <string name="welcome_text">Welcome to Camera Sample App. Click on button below to take photos.</string>
 
